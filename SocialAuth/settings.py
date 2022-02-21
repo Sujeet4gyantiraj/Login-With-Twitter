@@ -150,6 +150,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+#STATIC_ROOT = os.join(BASE_DIR,'staticfiles')
 
 LOGIN_REDIRECT_URL =  '/'
 ACCOUNT_EMAIL_VERIFICATION = "none"
@@ -159,4 +160,3 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATIC_ROOT = os.join(BASE_DIR,'staticfiles')
