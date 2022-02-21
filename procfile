@@ -1,1 +1,2 @@
 web: gunicorn SocialAuth.wsgi --log-file
+$ heroku logs --tail --app SocialAuth
