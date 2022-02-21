@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+WHITENOISE_USE_FINDERS = True
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
