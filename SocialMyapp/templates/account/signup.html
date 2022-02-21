@@ -1,0 +1,40 @@
+{% extends "./base.html" %}
+
+
+
+{% block head_title %}SignUp page{% endblock %}
+
+{% block content %}
+<h1>Resister Here</h1>
+
+
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+
+  {% for field in form %}
+
+ 
+   <div class="form-group field">
+   <label for="{{ field.id_for_label }}">{{field.label}}</label>
+   {{ field }}
+   {% if field.errors %}
+   <div class="alert-message">
+   {{ field.errors }}
+  </div>
+  {% endif %}
+ </div>
+
+   {% endfor %}
+  
+
+   
+
+   {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+
+  <button type="submit" class="btn btn-primary">submit</button>
+</form>
+<p>Login <a href="{{ login_url }}">login here</a></p>
+{% endblock %}

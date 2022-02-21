@@ -1,0 +1,41 @@
+{% extends "./base.html" %}
+{% load socialaccount %}
+
+{% block content %}
+{% get_providers as socialaccount_providers %}
+{% for provider in socialaccount_providers %}
+
+
+{% endfor %}
+<h1>LOGIN HERE</h1>
+
+<!-- django form -->
+<form role="form" class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+ 
+  {% for field in form %}
+
+   {% if field.label == "" %}
+   <div class="form-group field">
+    <label for="{{ field.id_for_label }}">{{field.label}}　{{ field }}</label>
+  </div>
+
+   {% else %}
+  	<div class="form-group field">
+    <label for="{{ field.id_for_label }}">{{field.label}}</label>
+    {{ field }}
+  </div>
+  {% endif %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+    <div class="alert-message">
+      <p>{{ error }}</p>
+    </div>
+  {% endfor %}
+
+  <button type="submit" class="btn-block btn btn-lg btn-primary">Submit</button>
+  <p class="text-center"><a href="{{ signup_url }}">SignUp</a></p>
+  <p class="text-center"><a href="{% url 'account_reset_password' %}">Password Reset</a></p>
+</form>
+<!-- django form end -->
+{% endblock %}
