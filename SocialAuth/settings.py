@@ -20,15 +20,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-bl%6h-jc^(^^jy8vjkmly45c^t-xol9$s)0s0a$g!!-z=bq*ml'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+API_KEY = "ZOyckUSI1fBSAorgIN5ANni63"
+API_SECRET= "SOx6LyRtrLwWLV7XceK88j7XKo2tEvqCPSg82cPjvmg0Vq26w1"
+ACCESS_TOKEN="1492315689247735808-tKE6fLASVaeunioAls61mosDJudYb2"
+ACCESS_TOKEN_SECRET = "D1cQSKRtkOtMTKGRzgIjV2SVG0BqGqjbZcE8Hx0dBjRiw"
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = ['.herokuapp.com','localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+     
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -36,17 +43,25 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'SocialMyapp',
+    'knox',
+
+    'rest_framework',
+     'rest_framework.authtoken',
+     'rest_auth',
 
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    
     'allauth.socialaccount',
     'allauth.socialaccount.providers.twitter',
-    'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.facebook',
+
+    'corsheaders',
 ]
 SESSION_COOKIE_SECURE = True 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,6 +105,15 @@ DATABASES = {
     }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+         'rest_framework.authentication.BasicAuthentication',
+         'rest_framework.authentication.SessionAuthentication',
+
+        'rest_framework.authentication.TokenAuthentication',
+        'knox.auth.TokenAuthentication',
+    ]
+}
 
 AUTHENTICATION_BACKENDS = [
     
@@ -134,6 +158,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -142,16 +168,19 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+APPEND_SLASH = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [
+    # BASE_DIR / "static",
+    BASE_DIR / "staticfiles",
+]
 LOGIN_REDIRECT_URL =  '/'
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_LOGOUT_ON_GET = True

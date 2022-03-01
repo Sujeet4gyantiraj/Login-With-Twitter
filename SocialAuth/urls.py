@@ -15,16 +15,34 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-from SocialMyapp.views import Home
+from allauth.account.views import SignupView
+from SocialMyapp.views import  Home,HomeView
+#from SocialMyapp.views import FacebookLogin
+#from SocialMyapp.views import TwitterLogin
 from django.conf import settings
 from django.conf.urls.static import static
+from SocialMyapp.views import RegisterAPI
+from knox import views as knox_views
+from SocialMyapp.views import LoginAPI
+from SocialMyapp.views import PostViews
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
-    path("", Home.as_view(), name="home"),
+    #path('rest-auth/', include('rest_auth.urls')),
+    path("", Home.as_view(), name="indexes"),
+    path("index", HomeView.as_view(), name="home"),
+    #path("sociallist/",SignupView.as_view()),
+     path('api/register/', RegisterAPI.as_view(), name='register'),
+     path('api/login/', LoginAPI.as_view(), name='login'),
+    path('api/logout/', knox_views.LogoutView.as_view(), name='logout'),
+    path('api/logoutall/', knox_views.LogoutAllView.as_view(), name='logoutall'),
+    path('Post-tweet/', PostViews.as_view())
+
+    #path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    #path('rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
+    #path('rest-auth/google/', TwitterLogin.as_view(), name='twitter_login')
    
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

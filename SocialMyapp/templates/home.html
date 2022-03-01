@@ -10,6 +10,18 @@
   {% if user.is_authenticated %}
     <h3>Welcome {{ user.username }} !!!</h3>
     <br /><br />
+
+    <form action="" method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="" class="form-label"></label>
+        <textarea class="form-control" name="posttweet" id="posttweet" rows="3"></textarea>
+      </div> 
+      <input type="submit" value="Post">
+      </form>
+      <br><br>
+
+
     <a href="{% url 'account_logout' %}" class="btn btn-danger">Logout</a>
   {% else %}
     

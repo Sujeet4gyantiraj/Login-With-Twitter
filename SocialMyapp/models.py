@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+
+class Postfile(models.Model):
+    tweet_post = models.CharField(max_length=100)
